@@ -1,6 +1,6 @@
 version: '3.7'
 services:
-  mongodb_container:
+  mongodb:
     image: mongo:latest
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
@@ -24,10 +24,7 @@ services:
       context: .
       dockerfile: docker/php/Dockerfile
     restart: on-failure
-    env_file:
-      - app/.env
     volumes:
       - './app/:/usr/src/app'
-#    user: 1000:1000
 volumes:
   mongodb_data_container:

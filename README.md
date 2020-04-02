@@ -17,6 +17,7 @@ This project is shiped with the docker compose setup.
 To get the containers run and install all dependencies, use:
 
 ``docker-compose up``
+
 ``docker-compose exec php bin/php composer install``
 
 ## Usage

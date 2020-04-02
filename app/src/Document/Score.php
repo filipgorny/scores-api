@@ -16,16 +16,15 @@ class Score
     private string $id;
 
     /**
-     * @MongoDB\EmbedOne(
+     * @MongoDB\ReferenceOne(
      *        targetDocument="App\Document\User",
-     *        strategy="set",
-     *        discriminatorField="App\Document\User"
+     *        cascade="persist"
      * )
      */
     private \App\Document\User $user;
 
     /**
-     * @MongoDB\Field(type="string")
+     * @MongoDB\Field(type="integer")
      */
     private int $score;
 

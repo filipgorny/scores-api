@@ -17,7 +17,7 @@ class User
     /**
      * @MongoDB\Field(type="string")
      */
-    private string $name;
+    private ?string $name; // must be set to nullable due the problems with doctrine and typed properties
 
     public function getId(): string
     {

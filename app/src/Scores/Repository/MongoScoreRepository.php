@@ -22,14 +22,20 @@ class MongoScoreRepository implements ScoreRepository
 
     public function findScores($sortBy = ScoreRepository::SORT_BY_DATE): array
     {
-        $query = $this->documentManager->createQueryBuilder(ScoreDocument::class)
-            ->sort($this->translateSortBy($sortBy))
-            ->getQuery();
+        $query = $this->documentManager->createQueryBuilder(ScoreDocument::class);
+
+        switch ($sortBy) {
+            case 'score':
+                $query->sort('score', -1);
+                break;
+            default:
+                $query->sort('finishedAt', 1);
+        }
 
         $result = [];
 
         try {
-            $resultDocuments = $query->execute();
+            $resultDocuments = $query->getQuery()->execute();
         } catch (MongoDBException $e) {
             throw new RepositoryFetchException();
         }
@@ -50,7 +56,6 @@ class MongoScoreRepository implements ScoreRepository
 
             $score->setUuid(new UUID($scoreDocument->getId()));
             $score->setScore($scoreDocument->getScore());
-
             $user = new User();
             $user->setUuid(new UUID($scoreDocument->getUser()->getId()));
             $user->setName($scoreDocument->getUser()->getName());
@@ -61,15 +66,5 @@ class MongoScoreRepository implements ScoreRepository
         }
 
         return $result;
-    }
-
-    private function translateSortBy($sortBy): string
-    {
-        switch ($sortBy) {
-            case 'score':
-                return 'score';
-            default:
-                return 'date';
-        }
     }
 }

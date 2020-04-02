@@ -27,3 +27,8 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\Scores\Provider\ScoresProvider:
+        class: App\Scores\Provider\ApiaryMockScoresProvider
+        arguments:
+            - 'https://private-b5236a-jacek10.apiary-mock.com/results/games/1'

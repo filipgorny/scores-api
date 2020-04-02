@@ -2,7 +2,7 @@
 
 namespace App\Scores\Repository;
 
-use App\Document\Score;
+use App\Scores\Score;
 use App\Scores\Repository\Exception\CorruptedDataException;
 use App\Scores\Repository\Exception\RepositoryFetchException;
 

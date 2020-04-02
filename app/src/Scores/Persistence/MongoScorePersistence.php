@@ -2,8 +2,10 @@
 
 namespace App\Scores\Persistence;
 
+use App\Document\Score as ScoreDocument;
 use App\Document\User as ODMUser;
 use App\Document\Score as ODMScore;
+use App\Document\User as UserDocument;
 use App\Scores\Score;
 use Doctrine\ODM\MongoDB\DocumentManager;
 
@@ -20,7 +22,7 @@ class MongoScorePersistence implements ScorePersistence
     {
         $userDocument = $this->documentManager
             ->getRepository(ODMUser::class)
-            ->findBy(['id' => (string) $score->getUser()->getUuid()]);
+            ->findOneBy(['id' => (string) $score->getUser()->getUuid()]);
 
         if (!$userDocument) {
             $userDocument = new ODMUser();
@@ -31,7 +33,7 @@ class MongoScorePersistence implements ScorePersistence
 
         $scoreDocument = $this->documentManager
             ->getRepository(ODMScore::class)
-            ->findBy(['id' => (string) $score->getUuid()]);
+            ->findOneBy(['id' => (string) $score->getUuid()]);
 
         if (!$scoreDocument) {
             $scoreDocument = new ODMScore();

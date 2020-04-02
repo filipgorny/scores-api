@@ -43,6 +43,7 @@ class ApiaryMockScoresProvider implements ScoresProvider
                 $user->setName($entry['user']['name']);
 
                 $score = new Score();
+                $score->setUuid(new UUID($entry['id']));
                 $score->setUser($user);
                 $score->setScore($entry['score']);
 
